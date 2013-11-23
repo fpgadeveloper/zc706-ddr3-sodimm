@@ -66,7 +66,10 @@ WRAPPER_NGC_FILES = implementation/system_axi4lite_0_wrapper.ngc \
 implementation/system_leds_3bits_wrapper.ngc \
 implementation/system_gpio_sws_wrapper.ngc \
 implementation/system_dip_switches_4bits_wrapper.ngc \
-implementation/system_processing_system7_0_wrapper.ngc
+implementation/system_processing_system7_0_wrapper.ngc \
+implementation/system_axi_interconnect_1_wrapper.ngc \
+implementation/system_axi_7series_ddrx_0_wrapper.ngc \
+implementation/system_clock_generator_0_wrapper.ngc
 
 POSTSYN_NETLIST = implementation/$(SYSTEM).ngc
 

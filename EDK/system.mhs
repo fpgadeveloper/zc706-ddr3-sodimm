@@ -1,7 +1,7 @@
 
 # ##############################################################################
 # Created by Base System Builder Wizard for Xilinx EDK 14.5 Build EDK_P.58f
-# Fri Nov 15 12:29:01 2013
+# Sat Nov 23 13:16:13 2013
 # Target Board:  xilinx.com zc706 Rev B
 # Family:    zynq
 # Device:    xc7z045
@@ -35,6 +35,24 @@
  PORT processing_system7_0_DDR_DQS_n = processing_system7_0_DDR_DQS_n, DIR = IO, VEC = [3:0]
  PORT processing_system7_0_DDR_VRN = processing_system7_0_DDR_VRN, DIR = IO
  PORT processing_system7_0_DDR_VRP = processing_system7_0_DDR_VRP, DIR = IO
+ PORT axi_7series_ddrx_0_ddr_addr_pin = axi_7series_ddrx_0_ddr_addr, DIR = O, VEC = [13:0]
+ PORT axi_7series_ddrx_0_ddr_ba_pin = axi_7series_ddrx_0_ddr_ba, DIR = O, VEC = [2:0]
+ PORT axi_7series_ddrx_0_ddr_cas_n_pin = axi_7series_ddrx_0_ddr_cas_n, DIR = O
+ PORT axi_7series_ddrx_0_ddr_ck_p_pin = axi_7series_ddrx_0_ddr_ck_p, DIR = O, SIGIS = CLK
+ PORT axi_7series_ddrx_0_ddr_ck_n_pin = axi_7series_ddrx_0_ddr_ck_n, DIR = O, SIGIS = CLK
+ PORT axi_7series_ddrx_0_ddr_cke_pin = axi_7series_ddrx_0_ddr_cke, DIR = O
+ PORT axi_7series_ddrx_0_ddr_cs_n_pin = axi_7series_ddrx_0_ddr_cs_n, DIR = O
+ PORT axi_7series_ddrx_0_ddr_dm_pin = axi_7series_ddrx_0_ddr_dm, DIR = O, VEC = [7:0]
+ PORT axi_7series_ddrx_0_ddr_odt_pin = axi_7series_ddrx_0_ddr_odt, DIR = O
+ PORT axi_7series_ddrx_0_ddr_ras_n_pin = axi_7series_ddrx_0_ddr_ras_n, DIR = O
+ PORT axi_7series_ddrx_0_ddr_reset_n_pin = axi_7series_ddrx_0_ddr_reset_n, DIR = O
+ PORT axi_7series_ddrx_0_ddr_we_n_pin = axi_7series_ddrx_0_ddr_we_n, DIR = O
+ PORT axi_7series_ddrx_0_ddr_dq = axi_7series_ddrx_0_ddr_dq, DIR = IO, VEC = [63:0]
+ PORT axi_7series_ddrx_0_ddr_dqs_p = axi_7series_ddrx_0_ddr_dqs_p, DIR = IO, VEC = [7:0]
+ PORT axi_7series_ddrx_0_ddr_dqs_n = axi_7series_ddrx_0_ddr_dqs_n, DIR = IO, VEC = [7:0]
+ PORT CLK_P = CLK, DIR = I, DIFFERENTIAL_POLARITY = P, SIGIS = CLK, CLK_FREQ = 200000000
+ PORT CLK_N = CLK, DIR = I, DIFFERENTIAL_POLARITY = N, SIGIS = CLK, CLK_FREQ = 200000000
+ PORT RESET = RESET, DIR = I, SIGIS = RST, RST_POLARITY = 1
 
 
 BEGIN axi_interconnect
@@ -147,7 +165,9 @@ BEGIN processing_system7
  PARAMETER C_FCLK_CLK1_FREQ = 50000000
  PARAMETER C_FCLK_CLK2_FREQ = 50000000
  PARAMETER C_FCLK_CLK3_FREQ = 50000000
+ PARAMETER C_USE_M_AXI_GP1 = 1
  BUS_INTERFACE M_AXI_GP0 = axi4lite_0
+ BUS_INTERFACE M_AXI_GP1 = axi_interconnect_1
  PORT MIO = processing_system7_0_MIO
  PORT PS_SRSTB = processing_system7_0_PS_SRSTB
  PORT PS_CLK = processing_system7_0_PS_CLK
@@ -172,5 +192,91 @@ BEGIN processing_system7
  PORT FCLK_CLK0 = processing_system7_0_FCLK_CLK0
  PORT FCLK_RESET0_N = processing_system7_0_FCLK_RESET0_N_0
  PORT M_AXI_GP0_ACLK = processing_system7_0_FCLK_CLK0
+ PORT M_AXI_GP1_ACLK = clk_200_0000MHzPLLE0
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi_interconnect_1
+ PARAMETER HW_VER = 1.06.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 1
+ PORT INTERCONNECT_ACLK = clk_200_0000MHzPLLE0
+ PORT INTERCONNECT_ARESETN = pll_lock
+END
+
+BEGIN axi_7series_ddrx
+ PARAMETER INSTANCE = axi_7series_ddrx_0
+ PARAMETER HW_VER = 1.08.a
+ PARAMETER C_MEM_PARTNO = MT8JTF12864HZ-1G6
+ PARAMETER C_RTT_NOM = 60
+# PARAMETER C_TCK = 1250
+ PARAMETER C_ROW_WIDTH = 14
+ PARAMETER C_PLLE2_EXT_LOC = X1Y5
+ PARAMETER C_CLKOUT0_PHASE = 337.5
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = processing_system7_0.M_AXI_GP1
+ PARAMETER C_S_AXI_BASEADDR = 0x80000000
+ PARAMETER C_S_AXI_HIGHADDR = 0x8FFFFFFF
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ BUS_INTERFACE S_AXI = axi_interconnect_1
+ PORT clk = clk_200_0000MHzPLLE0
+ PORT ddr_addr = axi_7series_ddrx_0_ddr_addr
+ PORT ddr_ba = axi_7series_ddrx_0_ddr_ba
+ PORT ddr_cas_n = axi_7series_ddrx_0_ddr_cas_n
+ PORT ddr_ck_p = axi_7series_ddrx_0_ddr_ck_p
+ PORT ddr_ck_n = axi_7series_ddrx_0_ddr_ck_n
+ PORT ddr_cke = axi_7series_ddrx_0_ddr_cke
+ PORT ddr_cs_n = axi_7series_ddrx_0_ddr_cs_n
+ PORT ddr_dm = axi_7series_ddrx_0_ddr_dm
+ PORT ddr_odt = axi_7series_ddrx_0_ddr_odt
+ PORT ddr_ras_n = axi_7series_ddrx_0_ddr_ras_n
+ PORT ddr_reset_n = axi_7series_ddrx_0_ddr_reset_n
+ PORT ddr_we_n = axi_7series_ddrx_0_ddr_we_n
+ PORT ddr_dq = axi_7series_ddrx_0_ddr_dq
+ PORT ddr_dqs_p = axi_7series_ddrx_0_ddr_dqs_p
+ PORT ddr_dqs_n = axi_7series_ddrx_0_ddr_dqs_n
+ PORT sync_pulse = clk_50_0000MHz10PLLE0_nobuf
+ PORT mem_refclk = clk_800_0000MHzPLLE0_nobuf
+ PORT freq_refclk = clk_800_0000MHz1PLLE0_nobuf
+ PORT clk_ref = clk_200_0000MHzPLLE0
+ PORT pll_lock = pll_lock
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clock_generator_0
+ PARAMETER HW_VER = 4.03.a
+ PARAMETER C_CLKIN_FREQ = 200000000
+ PARAMETER C_CLKOUT0_FREQ = 800000000
+ PARAMETER C_CLKOUT0_PHASE = 337.5
+ PARAMETER C_CLKOUT0_GROUP = PLLE0
+ PARAMETER C_CLKOUT0_BUF = FALSE
+ PARAMETER C_CLKOUT1_FREQ = 800000000
+ PARAMETER C_CLKOUT1_GROUP = PLLE0
+ PARAMETER C_CLKOUT1_BUF = FALSE
+ PARAMETER C_CLKOUT2_FREQ = 50000000
+ PARAMETER C_CLKOUT2_PHASE = 10
+ PARAMETER C_CLKOUT2_DUTY_CYCLE = 0.0625
+ PARAMETER C_CLKOUT2_GROUP = PLLE0
+ PARAMETER C_CLKOUT2_BUF = FALSE
+ PARAMETER C_CLKOUT3_FREQ = 200000000
+ PARAMETER C_CLKOUT3_GROUP = PLLE0
+ PARAMETER C_CLKOUT0_DUTY_CYCLE = 0.500000
+ PARAMETER C_CLKOUT0_VARIABLE_PHASE = FALSE
+ PARAMETER C_CLKOUT1_DUTY_CYCLE = 0.500000
+ PARAMETER C_CLKOUT1_PHASE = 0
+ PARAMETER C_CLKOUT1_VARIABLE_PHASE = FALSE
+ PARAMETER C_CLKOUT2_VARIABLE_PHASE = FALSE
+ PARAMETER C_CLKOUT3_BUF = TRUE
+ PARAMETER C_CLKOUT3_DUTY_CYCLE = 0.500000
+ PARAMETER C_CLKOUT3_PHASE = 0
+ PARAMETER C_CLKOUT3_VARIABLE_PHASE = FALSE
+ PORT LOCKED = pll_lock
+ PORT CLKOUT3 = clk_200_0000MHzPLLE0
+ PORT RST = RESET
+ PORT CLKOUT2 = clk_50_0000MHz10PLLE0_nobuf
+ PORT CLKOUT1 = clk_800_0000MHzPLLE0_nobuf
+ PORT CLKOUT0 = clk_800_0000MHz1PLLE0_nobuf
+ PORT CLKIN = CLK
 END
 
