@@ -21,3 +21,6 @@ NET  CLK_N              LOC = G9   | IOSTANDARD=DIFF_SSTL15; # Bank  34 VCCO - V
 
 NET "CLK" TNM_NET = CLK;
 TIMESPEC TS_sys_clk_pin = PERIOD CLK 200 MHz;
+
+## Add for ZC706:
+CONFIG DCI_CASCADE = "33 34";

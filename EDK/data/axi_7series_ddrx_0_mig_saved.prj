@@ -158,7 +158,7 @@
             <Pin VCCAUX_IO="HIGH" IOSTANDARD="SSTL15" PADName="F7" SLEW="FAST" name="ddr_we_n" IN_TERM="" />
         </PinSelection>
         <System_Control>
-            <Pin PADName="A8(DQS)" Bank="34" name="sys_rst" />
+            <Pin PADName="No connect" Bank="Select Bank" name="sys_rst" />
             <Pin PADName="No connect" Bank="Select Bank" name="init_calib_complete" />
             <Pin PADName="No connect" Bank="Select Bank" name="tg_compare_error" />
         </System_Control>
@@ -175,7 +175,7 @@
         <emrOutputDriveStrength name="Output Driver Impedance Control" >RZQ/7</emrOutputDriveStrength>
         <emrMirrorSelection name="Address Mirroring" >Disable</emrMirrorSelection>
         <emrCSSelection name="Controller Chip Select Pin" >Enable</emrCSSelection>
-        <emrRTT name="RTT (nominal) - On Die Termination (ODT)" >RZQ/4</emrRTT>
+        <emrRTT name="RTT (nominal) - On Die Termination (ODT)" >RZQ/6</emrRTT>
         <emrPosted name="Additive Latency (AL)" >0</emrPosted>
         <emrOCD name="Write Leveling Enable" >Disabled</emrOCD>
         <emrDQS name="TDQS enable" >Enabled</emrDQS>
@@ -187,24 +187,21 @@
         <mr2RTTWR name="RTT_WR - Dynamic On Die Termination (ODT)" >Dynamic ODT off</mr2RTTWR>
         <PortInterface>AXI</PortInterface>
         <AXIParameters>
-            <C0_C_RD_WR_ARB_ALGORITHM>RD_PRI_REG</C0_C_RD_WR_ARB_ALGORITHM>
-            <C0_S_AXI_ID_WIDTH>4</C0_S_AXI_ID_WIDTH>
-            <C0_S_AXI_SUPPORTS_NARROW_BURST>1</C0_S_AXI_SUPPORTS_NARROW_BURST>
-            <C_INTERCONNECT_S_AXI_AR_REGISTER>BYPASS</C_INTERCONNECT_S_AXI_AR_REGISTER>
-            <C_INTERCONNECT_S_AXI_AW_REGISTER>BYPASS</C_INTERCONNECT_S_AXI_AW_REGISTER>
-            <C_INTERCONNECT_S_AXI_B_REGISTER>BYPASS</C_INTERCONNECT_S_AXI_B_REGISTER>
+            <C_INTERCONNECT_S_AXI_AR_REGISTER>AUTOMATIC</C_INTERCONNECT_S_AXI_AR_REGISTER>
+            <C_INTERCONNECT_S_AXI_AW_REGISTER>AUTOMATIC</C_INTERCONNECT_S_AXI_AW_REGISTER>
+            <C_INTERCONNECT_S_AXI_B_REGISTER>AUTOMATIC</C_INTERCONNECT_S_AXI_B_REGISTER>
             <C_INTERCONNECT_S_AXI_READ_ACCEPTANCE>4</C_INTERCONNECT_S_AXI_READ_ACCEPTANCE>
             <C_INTERCONNECT_S_AXI_READ_FIFO_DEPTH>0</C_INTERCONNECT_S_AXI_READ_FIFO_DEPTH>
-            <C_INTERCONNECT_S_AXI_R_REGISTER>BYPASS</C_INTERCONNECT_S_AXI_R_REGISTER>
+            <C_INTERCONNECT_S_AXI_R_REGISTER>AUTOMATIC</C_INTERCONNECT_S_AXI_R_REGISTER>
             <C_INTERCONNECT_S_AXI_SECURE>0</C_INTERCONNECT_S_AXI_SECURE>
             <C_INTERCONNECT_S_AXI_WRITE_ACCEPTANCE>4</C_INTERCONNECT_S_AXI_WRITE_ACCEPTANCE>
             <C_INTERCONNECT_S_AXI_WRITE_FIFO_DEPTH>0</C_INTERCONNECT_S_AXI_WRITE_FIFO_DEPTH>
             <C_INTERCONNECT_S_AXI_W_REGISTER>BYPASS</C_INTERCONNECT_S_AXI_W_REGISTER>
             <C_RD_WR_ARB_ALGORITHM>RD_PRI_REG</C_RD_WR_ARB_ALGORITHM>
             <C_S_AXI_ADDR_WIDTH>32</C_S_AXI_ADDR_WIDTH>
-            <C_S_AXI_BASEADDR>0X00000000</C_S_AXI_BASEADDR>
+            <C_S_AXI_BASEADDR>0x80000000</C_S_AXI_BASEADDR>
             <C_S_AXI_DATA_WIDTH>32</C_S_AXI_DATA_WIDTH>
-            <C_S_AXI_HIGHADDR>0X0FFFFFFF</C_S_AXI_HIGHADDR>
+            <C_S_AXI_HIGHADDR>0xBFFFFFFF</C_S_AXI_HIGHADDR>
             <C_S_AXI_SUPPORTS_NARROW_BURST>Auto</C_S_AXI_SUPPORTS_NARROW_BURST>
         </AXIParameters>
     </Controller>
