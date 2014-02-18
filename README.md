@@ -15,6 +15,11 @@ As the core is memory mapped, the memory can be used by the processor directly
 or it can be used by other peripherals via DMA. Check my other examples on
 DMA if you want to know how to do this.
 
+### Requirements
+
+* ISE Design Suite 14.7
+* ZC706 Evaluation Board
+
 ### License
 
 Feel free to modify the project or use it as a base for your application.
